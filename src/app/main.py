@@ -1,8 +1,5 @@
-from helpers import definitions as d 
+import helpers.menu as m
 
 if __name__ == "__main__":
-    hd = d.DefinitionHelper()
-    hd.base_definition()
-    hd.key_features()
-    hd.philosophy()
-    hd.example()
+    menu = m.Menu()
+    menu.main_menu()
