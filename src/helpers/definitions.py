@@ -11,17 +11,17 @@ def polars_definition():
 
         It features a well-structured, typed API that is both expressive and easy to use.
         
-            ⚡️ Fast - Polars is written from the ground up with performance in mind. 
+            [yellow]⚡️[/] [dodger_blue2]Fast[/] - Polars is written from the ground up with performance in mind. 
                       Its multi-threaded query engine is written in Rust 
                       and designed for effective parallelism. 
                       Its vectorized and columnar processing enables cache-coherent 
                       algorithms and high performance on modern processors.
                         
-            ⚡️ Easy to use - You will feel right at home with Polars if you are familiar with data wrangling. 
+            [yellow]⚡️[/] [dodger_blue2]Easy to use[/] - You will feel right at home with Polars if you are familiar with data wrangling. 
                              Its expressions are intuitive and empower you to write code 
                              which is readable and performant at the same time.
                         
-            ⚡️ Open source - Polars is and always will be open source. Driven by an active community of developers, 
+            [yellow]⚡️[/] [dodger_blue2]Open source[/] - Polars is and always will be open source. Driven by an active community of developers, 
                              everyone is encouraged to add new features and contribute. 
                              Polars is free to use under the MIT license.
         """, title="[red]Polars"))
