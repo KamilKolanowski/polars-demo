@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Python: Run app.main as module",
+        "type": "python",
+        "request": "launch",
+        "module": "app.main",
+        "cwd": "${workspaceFolder}/src"
+      }
+    ]
+  }
