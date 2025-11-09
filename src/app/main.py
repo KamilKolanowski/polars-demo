@@ -5,3 +5,4 @@ if __name__ == "__main__":
     hd.base_definition()
     hd.key_features()
     hd.philosophy()
+    hd.example()

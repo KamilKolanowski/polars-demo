@@ -1,47 +1,66 @@
+from typing import List, Optional, Tuple
 from rich.console import Console
 from rich.panel import Panel
 from rich.align import Align
+from rich.syntax import Syntax
 import textwrap
 
 class DefinitionHelper:
-    BULLET = "[yellow]⚡️[/]"
-    BASE_INDENT = "    "
-    SECTION_INDENT = "        "
-    PANEL_PADDING = (1, 4)
-    PANEL_MARGIN = 4
+    BULLET: str = "[yellow]⚡️[/]"
+    BASE_INDENT: str = "    "
+    SECTION_INDENT: str = "        "
+    PANEL_PADDING: Tuple[int, int] = (1, 4)
+    PANEL_MARGIN: int = 4
 
-    def __init__(self):
-        self.console = Console()
+    def __init__(self) -> None:
+        self.console: Console = Console()
 
-    def hanging_bullet(self, text, bullet=None, indent=None, width=None):
+    def hanging_bullet(
+        self, 
+        text: str, 
+        bullet: Optional[str] = None, 
+        indent: Optional[str] = None, 
+        width: Optional[int] = None
+    ) -> str:
         bullet = bullet if bullet is not None else self.BULLET
         indent = indent if indent is not None else self.BASE_INDENT
         panel_width = width if width is not None else self.console.width - self.PANEL_MARGIN * 2
         wrap_width = panel_width - len(bullet)
 
-        wrapped = textwrap.wrap(text, width=wrap_width)
+        wrapped: List[str] = textwrap.wrap(text, width=wrap_width)
         if not wrapped:
             return bullet
-        lines = [bullet + wrapped[0]]
+        lines: List[str] = [bullet + wrapped[0]]
         lines += [indent + line for line in wrapped[1:]]
         return "\n".join(lines)
 
-    def format_bullet_section(self, bullets, indent=None, width=None):
+    def format_bullet_section(
+        self, 
+        bullets: List[str], 
+        indent: Optional[str] = None, 
+        width: Optional[int] = None
+    ) -> str:
         indent = indent if indent is not None else self.BASE_INDENT
         panel_width = width if width is not None else self.console.width - self.PANEL_MARGIN * 2
-        bullet_texts = [
+        bullet_texts: List[str] = [
             self.hanging_bullet(b, bullet=self.BULLET, indent=indent, width=panel_width - self.PANEL_MARGIN * 2)
             for b in bullets
         ]
         return "\n\n".join(bullet_texts)
 
-    def print_bullet_panel(self, title, bullets, prolog=None, indent=None):
-        panel_width = self.console.width - self.PANEL_MARGIN
-        body = ""
+    def print_bullet_panel(
+        self, 
+        title: str, 
+        bullets: List[str], 
+        prolog: Optional[str] = None, 
+        indent: Optional[str] = None
+    ) -> None:
+        panel_width: int = self.console.width - self.PANEL_MARGIN
+        body: str = ""
         if prolog:
             body += prolog.strip() + "\n\n"
         body += self.format_bullet_section(bullets, indent=indent, width=panel_width)
-        panel = Panel(
+        panel: Panel = Panel(
             Align.left(body),
             title=title,
             width=panel_width,
@@ -49,14 +68,14 @@ class DefinitionHelper:
         )
         self.console.print(panel)
 
-    def base_definition(self):
-        prolog = """
+    def base_definition(self) -> None:
+        prolog: str = """
 An [sea_green2]open-source[/] library for data manipulation,
 known for being one of the fastest data processing solutions on a single machine.
 
 It features a well-structured, typed API that is both expressive and easy to use.
 """.strip()
-        bullets = [
+        bullets: List[str] = [
             ("[dodger_blue2]Fast[/] - Polars is written from the ground up with performance in mind. "
              "Its multi-threaded query engine is written in Rust and designed for effective parallelism. "
              "Its vectorized and columnar processing enables cache-coherent algorithms and high performance on modern processors."),
@@ -65,11 +84,11 @@ It features a well-structured, typed API that is both expressive and easy to use
             ("[dodger_blue2]Open source[/] - Polars is and always will be open source. Driven by an active community of developers, "
              "everyone is encouraged to add new features and contribute. Polars is free to use under the MIT license.")
         ]
-        title = "[red][link=https://pola.rs]Polars[/link]"
+        title: str = "[red][link=https://pola.rs]Polars[/link]"
         self.print_bullet_panel(title, bullets, prolog=prolog, indent=self.BASE_INDENT)
 
-    def key_features(self):
-        bullets = [
+    def key_features(self) -> None:
+        bullets: List[str] = [
             "[dodger_blue2]Fast[/] - Written from scratch in Rust, designed close to the machine and without external dependencies.",
             "[dodger_blue2]I/O[/] - First class support for all common data storage layers: local, cloud storage & databases.",
             "[dodger_blue2]Intuitive API[/] - Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.",
@@ -79,16 +98,22 @@ It features a well-structured, typed API that is both expressive and easy to use
             "[dodger_blue2]GPU Support[/] - Optionally run queries on NVIDIA GPUs for maximum performance for in-memory workloads.",
             "[dodger_blue2]Apache Arrow support[/] - Polars can consume and produce Arrow data often with zero-copy operations. Note that Polars is not built on a Pyarrow/Arrow implementation. Instead, Polars has its own compute and buffer implementations.",
         ]
-        title = "[red]Key Features"
+        title: str = "[red]Key Features"
         self.print_bullet_panel(title, bullets, indent=self.SECTION_INDENT)
 
-    def philosophy(self):
-        bullets = [
+    def philosophy(self) -> None:
+        bullets: List[str] = [
             "Utilizes all available cores on your machine.",
             "Optimizes queries to reduce unneeded work/memory allocations.",
             "Handles datasets much larger than your available RAM.",
             "A consistent and predictable API.",
             "Adheres to a strict schema (data-types should be known before running the query).",
         ]
-        title = "[red]Philosophy"
+        title: str = "[red]Philosophy"
         self.print_bullet_panel(title, bullets, indent=self.SECTION_INDENT)
+
+    def example(self) -> None:
+        syntax: Syntax = Syntax.from_path("./helpers/example.py", line_numbers=True)
+        print()
+        self.console.print(syntax)
+        print()
