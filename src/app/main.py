@@ -1,4 +1,7 @@
 from helpers import definitions as d 
 
 if __name__ == "__main__":
-    d.polars_definition()
+    hd = d.DefinitionHelper()
+    hd.base_definition()
+    hd.key_features()
+    hd.philosophy()
