@@ -1,25 +1,28 @@
 from InquirerPy import inquirer
 from rich.console import Console
 from helpers import definitions as d
+import pipelines.silver as s
 import os
 
 class Menu:
-    def __init__(self):
+    def __init__(self) -> None:
         self.console = Console()
 
-    def clear_screen(self):
+    def clear_screen(self) -> None:
         os.system("cls" if os.name == "nt" else "clear")
 
-    def menu_return_message(self):
+    def menu_return_message(self) -> None:
         input("\nPress Enter to return to the menu...")
 
-    def main_menu(self):
+    def main_menu(self) -> None:
         choices = [
             "Polars Definitions",
             "Examples",
             "Spark Comparison",
             "Exit",
         ]
+
+        td = s.TransformData()
 
         while True:
             self.clear_screen()
@@ -38,7 +41,9 @@ class Menu:
             if result == "Polars Definitions":
                 self.polars_menu()
             elif result == "Examples":
-                print("Examples here")
+                print(td.read_categories())
+                print(td.read_cities())
+                print(td.read_countries())
                 self.menu_return_message()
             elif result == "Spark Comparison":
                 print("Check the comparison here")
@@ -46,8 +51,7 @@ class Menu:
             elif result == "Exit":
                 break
             
-
-    def polars_menu(self):
+    def polars_menu(self) -> None:
         choices = [
             "Base Definition",
             "Key Features",

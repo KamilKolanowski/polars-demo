@@ -1,0 +1,70 @@
+import polars as pl
+from . import bronze as b
+
+class TransformData:
+    def __init__(self, sdr: b.SourceDataReader = b.SourceDataReader(), df: pl.DataFrame = None) -> None:
+        self.df = df
+        self.sdr = sdr
+
+    def read_categories(self) -> pl.DataFrame:
+        categories = (self.sdr.read_file(path="data/categories.csv")
+                        .select(
+                            pl.col("CategoryID").alias("CategoryId"),
+                            pl.col("CategoryName")
+                        )
+        )
+
+        return categories
+    
+    def read_cities(self) -> pl.DataFrame:
+        categories = (self.sdr.read_file(path="data/cities.csv")
+                        .select(
+                            pl.col("CityID").alias("CityId"),
+                            pl.col("CityName"),
+                            pl.col("Zipcode").alias("ZipCode"),
+                            pl.col("CountryID").alias("CountryId")
+                        )
+        )
+
+        return categories
+    
+    def read_countries(self) -> pl.DataFrame:
+        categories = (self.sdr.read_file(path="data/countries.csv")
+                        .select(
+                            pl.col("CountryID").alias("CountryId"),
+                            pl.col("CountryName"),
+                            pl.col("CountryCode")
+                        )
+        )
+
+        return categories
+    
+    def read_categories(self) -> pl.DataFrame:
+        categories = (self.sdr.read_file(path="data/categories.csv")
+                        .select(
+                            pl.col("CategoryID").alias("CategoryId"),
+                            pl.col("CategoryName")
+                        )
+        )
+
+        return categories
+    
+    def read_categories(self) -> pl.DataFrame:
+        categories = (self.sdr.read_file(path="data/categories.csv")
+                        .select(
+                            pl.col("CategoryID").alias("CategoryId"),
+                            pl.col("CategoryName")
+                        )
+        )
+
+        return categories
+    
+    def read_categories(self) -> pl.DataFrame:
+        categories = (self.sdr.read_file(path="data/categories.csv")
+                        .select(
+                            pl.col("CategoryID").alias("CategoryId"),
+                            pl.col("CategoryName")
+                        )
+        )
+
+        return categories
