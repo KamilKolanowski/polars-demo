@@ -1,7 +1,10 @@
 from InquirerPy import inquirer
 from rich.console import Console
 from helpers import definitions as d
+from helpers import timer as t
+from datetime import datetime
 import pipelines.silver as s
+import pipelines.silver_spark as ss
 import os
 
 class Menu:
@@ -41,10 +44,7 @@ class Menu:
             if result == "Polars Definitions":
                 self.polars_menu()
             elif result == "Examples":
-                print(td.read_categories())
-                print(td.read_cities())
-                print(td.read_countries())
-                self.menu_return_message()
+                self.lib_menu()
             elif result == "Spark Comparison":
                 print("Check the comparison here")
                 self.menu_return_message()
@@ -86,6 +86,38 @@ class Menu:
                 self.menu_return_message()
             elif result == "Example":
                 hd.example()
+                self.menu_return_message()
+            elif result == "Back":
+                break
+
+    def lib_menu(self):
+        choices = [
+            "Code Examples",
+            "Benchmark(s)",
+            "Back",
+        ]
+
+        while True:
+            self.clear_screen()
+            self.console.print("[red3]Check out the code examples and benchmarks below[/]")
+
+            result = inquirer.select(
+                message="Select an option below:",
+                choices=choices,
+                pointer=">",
+                instruction="use arrow keys and Enter",
+                qmark=""
+            ).execute()
+
+            td = s.TransformData()
+
+            self.clear_screen()
+
+            if result == "Code Examples":
+                pass
+            elif result == "Benchmark(s)":
+                t.log_time(lambda: td.read_sales(), "Polars")
+                t.log_time(lambda: ss.read_sales(), "Spark")
                 self.menu_return_message()
             elif result == "Back":
                 break
